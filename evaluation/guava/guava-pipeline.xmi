@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="jobs:">
+  <pipelineConfiguration name="Test">
+    <indPermissions>contents: read</indPermissions>
+    <indPermissions>actions: write</indPermissions>
+  </pipelineConfiguration>
+  <triggers name="push:">
+    <includedBranches name="*"/>
+  </triggers>
+  <jobs name="test">
+    <jobParameterValues name="name:" value="&quot;CI on Java 17 and 25&quot;"/>
+    <jobParameterValues name="runs-on:" value="self-hosted"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Check out repository&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Set up JDKs&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165"/>
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="with:">
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="java-version" actionValue="&quot;17\n25\n&quot;"/>
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="distribution" actionValue="'temurin'"/>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="cache:" actionValue="'maven'"/>
+      </subSteps>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Install&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;./mvnw -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dtoolchain.skip install -U -DskipTests=true -f pom.xml&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Test&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;./mvnw -B -P!standard-with-extra-repos -Dtoolchain.skip verify -U -Dmaven.javadoc.skip=true -Dsurefire.toolchain.version=17 -f pom.xml&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Print Surefire reports&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="if:" actionValue="${{ failure() }}"/>
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="./util/print_surefire_reports.sh"/>
+    </steps>
+  </jobs>
+</pipelineDSL:Pipeline>

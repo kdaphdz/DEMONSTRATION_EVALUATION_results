@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="jobs:">
+  <pipelineConfiguration name="Benchmark"/>
+  <triggers name="push:"/>
+  <jobs name="benchmark">
+    <jobParameterValues name="runs-on:" value="self-hosted"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Checkout repository&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/checkout@v3"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Upgrade pip and install dependencies&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Run benchmark tests&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run\n&quot;"/>
+    </steps>
+  </jobs>
+</pipelineDSL:Pipeline>

@@ -1,0 +1,26 @@
+name: Test
+env:
+  FORCE_COLOR: '1'
+'on':
+  push:
+    branches:
+    - '*'
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "build_all" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+    - uses: actions/checkout@v3
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        allow-prereleases: 'true'
+        cache-dependency-path: tox.ini
+    - name: Install dependencies
+      run: |-
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade tox
+    - name: Tests
+      run: tox -e py
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "build_all"

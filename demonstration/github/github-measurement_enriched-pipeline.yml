@@ -1,0 +1,123 @@
+name: Benchmark
+'on':
+  push: {}
+jobs:
+  benchmark_9:
+    runs-on: self-hosted
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_8:
+    runs-on: self-hosted
+    needs: benchmark_9
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_7:
+    runs-on: self-hosted
+    needs: benchmark_8
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_6:
+    runs-on: self-hosted
+    needs: benchmark_7
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_5:
+    runs-on: self-hosted
+    needs: benchmark_6
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_4:
+    runs-on: self-hosted
+    needs: benchmark_5
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_3:
+    runs-on: self-hosted
+    needs: benchmark_4
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_2:
+    runs-on: self-hosted
+    needs: benchmark_3
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark_1:
+    runs-on: self-hosted
+    needs: benchmark_2
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run
+  benchmark:
+    runs-on: self-hosted
+    needs: benchmark_1
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Upgrade pip and install dependencies
+      run: |-
+        pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run benchmark tests
+      run: pytest --benchmark-only --benchmark-save=benchmark_run

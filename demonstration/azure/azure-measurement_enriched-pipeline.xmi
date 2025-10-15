@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="stages:">
+  <pipelineConfiguration name="Benchmark"/>
+  <triggers name="push:"/>
+  <stages name="stage" displayName="Benchmark Stage">
+    <jobs name="benchmark_9">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_8" dependKW="dependsOn" references="//@stages.0/@jobs.0">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_7" dependKW="dependsOn" references="//@stages.0/@jobs.1">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_6" dependKW="dependsOn" references="//@stages.0/@jobs.2">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_5" dependKW="dependsOn" references="//@stages.0/@jobs.3">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_4" dependKW="dependsOn" references="//@stages.0/@jobs.4">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_3" dependKW="dependsOn" references="//@stages.0/@jobs.5">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_2" dependKW="dependsOn" references="//@stages.0/@jobs.6">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark_1" dependKW="dependsOn" references="//@stages.0/@jobs.7">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+    <jobs name="benchmark" dependKW="dependsOn" references="//@stages.0/@jobs.8">
+      <jobParameterValues name="pool:">
+        <subParameters name="name:" value="&quot;MyAgent&quot;"/>
+      </jobParameterValues>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pip install --upgrade pip\npip install -r requirements.txt\n&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Upgrade pip and install dependencies&quot;"/>
+      </steps>
+      <steps xsi:type="pipelineDSL:Script" name="task:" command="CmdLine@2">
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="inputs:">
+          <subSteps xsi:type="pipelineDSL:Script" name="script:" command="&quot;pytest --benchmark-only --benchmark-save=benchmark_run&quot;"/>
+        </subSteps>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="displayName:" actionValue="&quot;Run benchmark tests&quot;"/>
+      </steps>
+    </jobs>
+  </stages>
+</pipelineDSL:Pipeline>

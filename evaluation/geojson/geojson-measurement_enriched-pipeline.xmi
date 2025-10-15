@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="jobs:">
+  <pipelineConfiguration name="Test">
+    <pplVariables variableKey="FORCE_COLOR" variableValue="1"/>
+  </pipelineConfiguration>
+  <triggers name="push:">
+    <includedBranches name="*"/>
+  </triggers>
+  <jobs name="build">
+    <jobParameterValues name="runs-on:" value="self-hosted"/>
+    <steps xsi:type="pipelineDSL:Script" name="run:" command="~/runner-config/scripts/setup.sh &quot;start_measurement&quot; &quot;baseline=true&quot; &quot;build_all&quot; &quot;software&quot; perf &quot;interval=10&quot; &quot;events=power/energy-pkg/,power/energy-cores/&quot;"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/checkout@v3"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Set up Python 3.11&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/setup-python@v4"/>
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="with:">
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="python-version" actionValue="3.11"/>
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="allow-prereleases" actionValue="true"/>
+        <subSteps xsi:type="pipelineDSL:Action" actionKeyword="cache:" actionValue="pip"/>
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="cache-dependency-path" actionValue="tox.ini"/>
+      </subSteps>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Install dependencies&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;python -m pip install --upgrade pip\npython -m pip install --upgrade tox\n&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Tests&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;tox -e py&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Script" name="run:" command="~/runner-config/scripts/setup.sh &quot;end_measurement&quot; &quot;build_all&quot;"/>
+  </jobs>
+</pipelineDSL:Pipeline>

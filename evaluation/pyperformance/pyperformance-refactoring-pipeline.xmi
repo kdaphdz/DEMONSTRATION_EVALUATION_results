@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="jobs:">
+  <pipelineConfiguration name="Refactor"/>
+  <triggers name="push:">
+    <includedBranches name="*"/>
+  </triggers>
+  <jobs name="refactorjob">
+    <jobParameterValues name="runs-on:" value="self-hosted"/>
+    <steps xsi:type="pipelineDSL:Script" name="run:" command="~/runner-config/scripts/refactor.sh greencoderefactor-python &quot;ExplicitRaiseToExceptBodyTransformer,UnusedLocalVariablesTransformer,UnusedAssignmentTransformer&quot;"/>
+  </jobs>
+</pipelineDSL:Pipeline>

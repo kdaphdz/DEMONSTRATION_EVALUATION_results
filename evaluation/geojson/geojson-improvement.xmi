@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ASCII"?>
+<measurementDSL:Improvement xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:measurementDSL="http://www.esi.uclm/alarcos/greenteam/measurement/MeasurementDSL" platform="GitHub">
+  <measurement>
+    <which>
+      <approach xsi:type="measurementDSL:SoftwareApproach">
+        <tool xsi:type="measurementDSL:PerfTool">
+          <config interval="10">
+            <events>power/energy-pkg/</events>
+            <events>power/energy-cores/</events>
+          </config>
+        </tool>
+      </approach>
+    </which>
+    <how repetitions="1" baseline="true"/>
+    <what>
+      <jobs name="build">
+      </jobs>
+    </what>
+  </measurement>
+</measurementDSL:Improvement>

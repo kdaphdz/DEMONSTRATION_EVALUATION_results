@@ -1,0 +1,14 @@
+name: Benchmark
+on:
+  push:
+    main:
+jobs:
+  benchmark:
+    runs-on: self-hosted
+    steps:
+    - name: "Checkout repository"
+      uses: actions/checkout@v3
+    - name: "Upgrade pip and install dependencies"
+      run: "pip install --upgrade pip\npip install -r requirements.txt\n"
+    - name: "Run benchmark tests"
+      run: "pytest --benchmark-only --benchmark-save=benchmark_run\n"

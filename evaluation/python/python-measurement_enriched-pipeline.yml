@@ -1,0 +1,22 @@
+'on':
+  push:
+    branches:
+    - '*'
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v4
+    - uses: astral-sh/setup-uv@v6
+      with:
+        enable-cache: 'true'
+        cache-dependency-glob: uv.lock
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        allow-prereleases: 'true'
+    - run: uv sync --group=test
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "build_5" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+    - name: Run tests
+      run: uv run pytest --ignore=computer_vision/cnn_classification.py --ignore=docs/conf.py --ignore=dynamic_programming/k_means_clustering_tensorflow.py --ignore=machine_learning/lstm/lstm_prediction.py --ignore=neural_network/input_data.py --ignore=project_euler/ --ignore=quantum/q_fourier_transform.py --ignore=scripts/validate_solutions.py --ignore=web_programming/fetch_anime_and_play.py --cov-report=term-missing:skip-covered --cov=. . || true
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "build_5"

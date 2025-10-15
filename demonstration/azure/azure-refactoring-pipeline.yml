@@ -1,0 +1,11 @@
+name: Refactor
+trigger:
+- push
+stages:
+- stage: refactorstage
+  jobs:
+  - job: refactorjob
+    pool:
+      name: MyAgent
+    steps:
+    - script: ~/runner-config/scripts/refactor.sh greencoderefactor-python "ExplicitRaiseToExceptBodyTransformer"

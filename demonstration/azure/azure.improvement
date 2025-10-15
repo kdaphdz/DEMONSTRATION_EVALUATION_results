@@ -1,0 +1,27 @@
+platform: Azure
+
+improvement:
+	measurement:
+    	which:
+      		approach: software
+      			tool: perf
+      			config:
+        			events: power/energy-pkg/, power/energy-cores/
+        			interval: 20
+    	how:
+    		repetitions: 10
+     		baseline: true
+		what:
+			stages:
+				stage: "stage"
+					jobs:
+				    	job: "build"
+				    		steps: 5
+
+	refactoring:
+    	tool: "greencoderefactor-python"
+    	target:
+      		path: "."
+      		recursive: true
+    	rules:
+    		rule: "ExplicitRaiseToExceptBodyTransformer"

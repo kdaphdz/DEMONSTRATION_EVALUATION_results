@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ASCII"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="jobs:">
+  <pipelineConfiguration name="test"/>
+  <triggers name="push:">
+    <includedBranches name="*"/>
+  </triggers>
+  <jobs name="test">
+    <jobParameterValues name="runs-on:" value="self-hosted"/>
+    <jobParameterValues name="name:" value="&quot;self-hosted - Python 3.10&quot;"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/checkout@v4"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Set up Python 3.10&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/setup-python@v5"/>
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="with:">
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="python-version" actionValue="3.10"/>
+      </subSteps>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Install&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;python -m pip install --upgrade pip setuptools\npython -m pip install -e .\n&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Display Python version&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;python -VV\npython -c 'import sysconfig; print(\&quot;Free threading?\&quot;, \&quot;Yes\&quot; if sysconfig.get_config_var(\&quot;Py_GIL_DISABLED\&quot;) else \&quot;No\&quot;)'\n&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Run Tests&quot;">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="id:" actionValue="pyperformance"/>
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;python -u -m pyperformance.tests&quot;"/>
+    </steps>
+  </jobs>
+</pipelineDSL:Pipeline>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<pipelineDSL:Pipeline xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pipelineDSL="http://www.esi.uclm/alarcos/greenteam/pipeline/PipelineDSL" jobOrStageVar="jobs:">
+  <pipelineConfiguration/>
+  <triggers name="push:">
+    <includedBranches name="*"/>
+  </triggers>
+  <jobs name="build">
+    <jobParameterValues name="runs-on:" value="self-hosted"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/checkout@v4"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="astral-sh/setup-uv@v6">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="with:">
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="enable-cache" actionValue="true"/>
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="cache-dependency-glob" actionValue="uv.lock"/>
+      </subSteps>
+    </steps>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="uses:" actionValue="actions/setup-python@v5">
+      <subSteps xsi:type="pipelineDSL:Action" actionKeyword="with:">
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="python-version" actionValue="3.13"/>
+        <subSteps xsi:type="pipelineDSL:Action" otherKeyword="allow-prereleases" actionValue="true"/>
+      </subSteps>
+    </steps>
+    <steps xsi:type="pipelineDSL:Script" name="run:" command="&quot;uv sync --group=test&quot;"/>
+    <steps xsi:type="pipelineDSL:Script" name="run:" command="~/runner-config/scripts/setup.sh &quot;start_measurement&quot; &quot;baseline=true&quot; &quot;build_5&quot; &quot;software&quot; perf &quot;interval=10&quot; &quot;events=power/energy-pkg/,power/energy-cores/&quot;"/>
+    <steps xsi:type="pipelineDSL:Action" actionKeyword="name:" actionValue="&quot;Run tests&quot;">
+      <subSteps xsi:type="pipelineDSL:Script" name="run:" command="&quot;uv run pytest --ignore=computer_vision/cnn_classification.py --ignore=docs/conf.py --ignore=dynamic_programming/k_means_clustering_tensorflow.py --ignore=machine_learning/lstm/lstm_prediction.py --ignore=neural_network/input_data.py --ignore=project_euler/ --ignore=quantum/q_fourier_transform.py --ignore=scripts/validate_solutions.py --ignore=web_programming/fetch_anime_and_play.py --cov-report=term-missing:skip-covered --cov=. . || true&quot;"/>
+    </steps>
+    <steps xsi:type="pipelineDSL:Script" name="run:" command="~/runner-config/scripts/setup.sh &quot;end_measurement&quot; &quot;build_5&quot;"/>
+  </jobs>
+</pipelineDSL:Pipeline>
