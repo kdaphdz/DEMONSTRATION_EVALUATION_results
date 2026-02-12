@@ -1,0 +1,41 @@
+{
+  "timer_start": "1760432076778842",
+  "timer_end": "1760432416614375",
+  "delta_t_seconds": 339.84,
+  "events": {
+    "power/energy-cores/": {
+      "unit": "W",
+      "samples": 33590,
+      "min": 1.91,
+      "max": 60.3,
+      "mean": 22.25,
+      "std": 7.09,
+      "percentiles": {
+        "p25": 18.69,
+        "p50": 22.75,
+        "p75": 23.74,
+        "p90": 24.73,
+        "p95": 43.56,
+        "p99": 45.51
+      },
+      "consumption": 7556.03
+    },
+    "power/energy-pkg/": {
+      "unit": "W",
+      "samples": 33590,
+      "min": 1.94,
+      "max": 63.26,
+      "mean": 22.83,
+      "std": 7.13,
+      "percentiles": {
+        "p25": 19.71,
+        "p50": 23.73,
+        "p75": 24.71,
+        "p90": 25.72,
+        "p95": 44.49,
+        "p99": 45.51
+      },
+      "consumption": 7752.7
+    }
+  }
+}
