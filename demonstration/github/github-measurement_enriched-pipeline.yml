@@ -11,8 +11,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_8:
     runs-on: self-hosted
     needs: benchmark_9
@@ -23,8 +26,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_7:
     runs-on: self-hosted
     needs: benchmark_8
@@ -35,8 +41,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_6:
     runs-on: self-hosted
     needs: benchmark_7
@@ -47,8 +56,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_5:
     runs-on: self-hosted
     needs: benchmark_6
@@ -59,8 +71,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_4:
     runs-on: self-hosted
     needs: benchmark_5
@@ -71,8 +86,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_3:
     runs-on: self-hosted
     needs: benchmark_4
@@ -83,8 +101,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_2:
     runs-on: self-hosted
     needs: benchmark_3
@@ -95,8 +116,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark_1:
     runs-on: self-hosted
     needs: benchmark_2
@@ -107,8 +131,11 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
   benchmark:
     runs-on: self-hosted
     needs: benchmark_1
@@ -119,5 +146,8 @@ jobs:
       run: |-
         pip install --upgrade pip
         pip install -r requirements.txt
+    - run: ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3"
+        "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
     - name: Run benchmark tests
       run: pytest --benchmark-only --benchmark-save=benchmark_run
+    - run: ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"

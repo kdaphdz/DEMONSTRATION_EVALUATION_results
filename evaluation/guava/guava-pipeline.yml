@@ -1,0 +1,28 @@
+name: Test
+permissions:
+  contents: read
+  actions: write
+on:
+  push:
+    branches:
+    - "*"
+jobs:
+  test:
+    name: "CI on Java 17 and 25"
+    runs-on: self-hosted
+    steps:
+    - name: "Check out repository"
+      uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+    - name: "Set up JDKs"
+      uses: actions/setup-java@dded0888837ed1f317902acf8a20df0ad188d165
+      with:
+        java-version: "17\n25\n"
+        distribution: 'temurin'
+        cache: 'maven'
+    - name: "Install"
+      run: "./mvnw -B -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn -Dtoolchain.skip install -U -DskipTests=true -f pom.xml"
+    - name: "Test"
+      run: "./mvnw -B -P!standard-with-extra-repos -Dtoolchain.skip verify -U -Dmaven.javadoc.skip=true -Dsurefire.toolchain.version=17 -f pom.xml"
+    - name: "Print Surefire reports"
+      if: ${{ failure() }}
+      run: ./util/print_surefire_reports.sh

@@ -1,8 +1,0 @@
-name: Refactor
-'on':
-  push: {}
-jobs:
-  refactorjob:
-    runs-on: self-hosted
-    steps:
-    - run: ~/runner-config/scripts/refactor.sh greencoderefactor-python "ExplicitRaiseToExceptBodyTransformer"

@@ -1,28 +1,14 @@
-platform: GitHub
-
-improvement:
-	measurement:
-    	which:
-      		approach: software
-      			tool: perf
-      			config:
-        			events: power/energy-pkg/, power/energy-cores/
-        			interval: 10
-    	how:
-    		repetitions: 1
-     		baseline: true
-		what:
-			jobs:
-		    	job: "build"
-		    		steps: 5
-
-	refactoring:
-    	tool: "greencoderefactor-python"
-    	target:
-      		path: "."
-      		recursive: true
-    	rules:
-    		rule: "ExplicitRaiseToExceptBodyTransformer"
-      		rule: "UnusedLocalVariablesTransformer"
-      		rule: "UnusedAssignmentTransformer"
-      		
+measurement:
+  which:
+    approach: software
+    tool: perf
+    config:
+      events: power/energy-pkg/, power/energy-cores/
+      interval: 10
+  how:
+    repetitions: 1
+    baseline: true
+  what:
+    jobs:
+      job: "build"
+      steps: 5

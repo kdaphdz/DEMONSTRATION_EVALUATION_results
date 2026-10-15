@@ -1,0 +1,14 @@
+measurement:
+    which:
+      	approach: software
+      		tool: perf
+      		config:
+        		events: power/energy-pkg/, power/energy-cores/
+        		interval: 20
+    how:
+    	repetitions: 10
+     	baseline: true
+	what:
+		jobs:
+			job: "benchmark"
+				steps: 3

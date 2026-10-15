@@ -1,0 +1,6 @@
+﻿main_directory,measurement,main_time_seconds,pkg_main_consumption_J,pkg_baseline_mean_W,pkg_consumption_without_baseline_J,cores_main_consumption_J,cores_baseline_mean_W,cores_consumption_without_baseline_J
+20c97dc57ebf92ba78afe4deb88665e19f2bd31bee9ef5068647998a22e08f82\main,measurement0,32.17,833.7,3.63,716.92,814.55,3.52,701.31
+2a8b537f893b6de4295359b93f736bb875cfe1fde1f5be0c42442b46ebd037a6\main,measurement0,32.62,839.39,3.63,720.98,820.67,3.52,705.85
+722462b0abd40b261aa2a2863144c558d9acb00c2a1c7e0e66537ddd079671d9\main,measurement0,32.67,843.29,3.63,724.7,825.34,3.52,710.34
+862cb28bf040f0172c2e15de6bc0cb9087bcde194b23d0050be7b54ed76bc378\main,measurement0,33.69,829.54,3.63,707.25,811.06,3.52,692.47
+c20609a2757d7153b29f6782f308a8027f7adfa539b978fbfaa9b892977fcb8d\main,measurement0,34.08,884.58,3.63,760.87,867.01,3.52,747.05

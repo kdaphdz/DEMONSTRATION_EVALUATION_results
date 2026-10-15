@@ -1,0 +1,12 @@
+﻿measurement,main_time_seconds,pkg_main_consumption_J,pkg_baseline_mean_W,pkg_consumption_without_baseline_J,cores_main_consumption_J,cores_baseline_mean_W,cores_consumption_without_baseline_J
+measurement0,114.08,2919.94,3.9,2475.03,2832.63,3.78,2401.41
+measurement1,116.87,3020.09,3.9,2564.3,2940.67,3.78,2498.9
+measurement2,116.29,2928.07,3.9,2474.54,2874.98,3.78,2435.4
+measurement3,115.16,2989.96,3.9,2540.84,2921.62,3.78,2486.32
+measurement4,115.7,2952.11,3.9,2500.88,2866.26,3.78,2428.91
+measurement5,114.05,3007.91,3.9,2563.11,2919.93,3.78,2488.82
+measurement6,116.08,2920.41,3.9,2467.7,2869.87,3.78,2431.09
+measurement7,116.72,3004.36,3.9,2549.15,2907.01,3.78,2465.81
+measurement8,114.77,2948.5,3.9,2500.9,2848.72,3.78,2414.89
+measurement9,115.91,2963.3,3.9,2511.25,2875.29,3.78,2437.15
+

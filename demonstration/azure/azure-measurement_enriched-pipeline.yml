@@ -1,165 +1,274 @@
-name: Benchmark
 trigger:
-- push
+  - push
+
 stages:
-- stage: stage
-  displayName: Benchmark Stage
-  jobs:
-  - job: benchmark_9
-    pool:
-      name: MyAgent
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_8
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_9
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_7
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_8
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_6
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_7
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_5
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_6
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_4
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_5
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_3
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_4
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_2
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_3
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark_1
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_2
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
-  - job: benchmark
-    pool:
-      name: MyAgent
-    dependsOn:
-    - benchmark_1
-    steps:
-    - task: CmdLine@2
-      inputs:
-        script: |-
-          pip install --upgrade pip
-          pip install -r requirements.txt
-      displayName: Upgrade pip and install dependencies
-    - task: CmdLine@2
-      inputs:
-        script: pytest --benchmark-only --benchmark-save=benchmark_run
-      displayName: Run benchmark tests
+  - stage: Benchmark
+    jobs:
+      - job: benchmark_9
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_8
+        dependsOn: benchmark_9
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_7
+        dependsOn: benchmark_8
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_6
+        dependsOn: benchmark_7
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_5
+        dependsOn: benchmark_6
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_4
+        dependsOn: benchmark_5
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_3
+        dependsOn: benchmark_4
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_2
+        dependsOn: benchmark_3
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark_1
+        dependsOn: benchmark_2
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"
+
+      - job: benchmark
+        dependsOn: benchmark_1
+        pool:
+          name: MyAgent
+        steps:
+          - task: CmdLine@2
+            displayName: 'Install dependencies'
+            inputs:
+              script: |
+                python3 -m pip install -r requirements.txt
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "start_measurement" "baseline=true" "benchmark_3" "software" perf "interval=10" "events=power/energy-pkg/,power/energy-cores/"
+
+          - task: CmdLine@2
+            displayName: 'Run benchmark tests'
+            inputs:
+              script: |
+                python3 -m pytest --benchmark-only --benchmark-save=benchmark_run
+
+          - task: CmdLine@2
+            inputs:
+              script: |
+                ~/runner-config/scripts/setup.sh "end_measurement" "benchmark_3"

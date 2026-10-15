@@ -1,0 +1,23 @@
+name: Test
+env:
+  FORCE_COLOR: 1
+on:
+  push:
+    branches:
+    - "*"
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v3
+    - name: "Set up Python 3.11"
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.11
+        allow-prereleases: true
+        cache: pip
+        cache-dependency-path: tox.ini
+    - name: "Install dependencies"
+      run: "python -m pip install --upgrade pip\npython -m pip install --upgrade tox\n"
+    - name: "Tests"
+      run: "tox -e py"
